@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kripa G Shanbhag | Graphic Designer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #080808;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --white: #F5F0E8;
+      --muted: #7a7468;
+      --border: rgba(201, 168, 76, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom Cursor ── */
+    .cursor {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.18s ease;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 24px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, padding 0.4s;
+    }
+
+    header.scrolled {
+      background: rgba(8, 8, 8, 0.96);
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 42px;
+    }
+
+    nav ul li a {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--gold);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 26px;
+      height: 1px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 60% 50%, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(64px, 7.5vw, 130px);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 1px rgba(245, 240, 232, 0.3);
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 52px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: #080808;
+      padding: 16px 36px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--gold);
+    }
+
+    .btn-ghost .arrow {
+      transition: transform 0.3s;
+    }
+
+    .btn-ghost:hover .arrow {
+      transform: translateX(6px);
+    }
+
+    .hero-stats {
+      position: absolute;
+      right: 60px;
+      bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeLeft 0.9s 1.1s forwards;
+    }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.9s 1.3s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+      animation: pulse 2s infinite;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 120px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      /* background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.03)); */
+      background-image: url("gallery/graphic-design.jpg");
+      background-position: center;
+      background-size: cover;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-frame::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 60px;
+      height: 60px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+
+    .about-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 60px;
+      height: 60px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+
+    .about-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px;
+      font-weight: 300;
+      color: rgba(201, 168, 76, 0.15);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: 32px;
+      left: -32px;
+      background: var(--gold);
+      color: #080808;
+      padding: 20px 28px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .about-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      letter-spacing: 0;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .about-text .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .section-tag::before {
+      content: '//';
+      opacity: 0.5;
+    }
+
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .about-text p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .skill-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    .skill-pill i {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 60px;
+      margin: 20px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-icon {
+      color: var(--gold);
+      font-size: 10px;
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio {
+      padding: 120px 60px;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+    }
+
+    .section-header h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 14px;
+      line-height: 1.8;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-container {
+      margin-top: 40px;
+    }
+
+    .gallery-grid {
+      column-count: 4;
+      column-gap: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      .gallery-grid {
+        column-count: 3;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        column-count: 1;
+      }
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      background: #111;
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-item:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.15);
+    }
+
+    .gallery-img-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      overflow: hidden;
+    }
+
+    .gallery-img-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .p-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--gold);
+      opacity: 0;
+      transition: all 0.4s;
+    }
+
+    .gallery-item:hover .p-icon {
+      opacity: 1;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      padding: 120px 60px;
+      background: #0c0c0c;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #services::before {
+      content: 'SERVICES';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 200px;
+      font-weight: 300;
+      color: rgba(201, 168, 76, 0.03);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .services-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .services-intro h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .services-intro h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .services-intro p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+      margin-top: 24px;
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .service-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-row::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-dim);
+      transition: left 0.4s;
+    }
+
+    .service-row:hover::before {
+      left: 0;
+    }
+
+    .service-row:hover .srv-title {
+      color: var(--gold);
+    }
+
+    .service-row:hover .srv-arrow {
+      transform: translateX(6px);
+    }
+
+    .srv-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .srv-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .srv-title {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .srv-tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      position: relative;
+    }
+
+    .srv-arrow {
+      color: var(--gold);
+      transition: transform 0.3s;
+    }
+
+    /* ── ABOUT AI ── */
+    .ai-banner {
+      margin: 0 60px;
+      padding: 48px;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.03));
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+    }
+
+    .ai-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold);
+    }
+
+    .ai-icon {
+      font-size: 40px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .ai-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+
+    .ai-text p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 120px 60px;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    .contact-left h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .contact-left p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .contact-item:hover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    .c-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .c-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .c-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .c-val {
+      font-size: 14px;
+      color: var(--white);
+      margin-top: 2px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #0f0f0f;
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+
+    .form-group select option {
+      background: #111;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(122, 116, 104, 0.5);
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--gold);
+      color: #080808;
+      padding: 18px 40px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: none;
+      cursor: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.3s;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+
+    .submit-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    .footer-logo span {
+      color: var(--gold);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-nav a {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-nav a:hover {
+      color: var(--gold);
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 8, 8, 0.98);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }@media (max-width: 768px) {
+
+  .hero-stats {
+
+    display: none !important;
+
+  }
+
+}
+ 
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .mobile-menu ul li a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 300;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+      letter-spacing: 0.02em;
+    }
+
+    .mobile-menu ul li a:hover {
+      color: var(--gold);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeLeft {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header {
+        padding: 20px 28px;
+      }
+
+      header.scrolled {
+        padding: 14px 28px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      #home {
+        padding: 100px 28px 80px;
+      }
+
+      .hero-stats {
+        right: 28px;
+        bottom: 380px !important;
+      }
+
+      .scroll-hint {
+        left: 28px;
+      }
+
+      #about {
+        padding: 80px 28px;
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .about-badge {
+        left: 0;
+      }
+
+      #portfolio {
+        padding: 80px 28px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .p-item,
+      .p-item:nth-child(n) {
+        grid-column: span 2 !important;
+        grid-row: span 1 !important;
+      }
+
+      #services {
+        padding: 80px 28px;
+      }
+
+      .services-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .ai-banner {
+        margin: 0 28px;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      #contact {
+        padding: 80px 28px;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 36px 28px;
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+      }
+
+      .footer-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .divider {
+        padding: 0 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#home" onclick="closeMobile()">Home</a></li>
+      <li><a href="#about" onclick="closeMobile()">About</a></li>
+      <li><a href="#portfolio" onclick="closeMobile()">Portfolio</a></li>
+      <li><a href="#services" onclick="closeMobile()">Services</a></li>
+      <li><a href="#contact" onclick="closeMobile()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="logo">Kripa G <span>Shanbhag</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Graphic Designer · Visual Storyteller</div>
+      <h1 class="hero-title">
+        Bringing<br>
+        <em>Visual Stories</em><br>
+        <span class="outline">to Life</span>
+      </h1>
+      <p class="hero-sub">
+        Over a decade of crafting visuals that bring ideas to life, build brands, and create impact.
+      </p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-primary">
+          View My Work <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn-ghost">
+          Let's Connect <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">11<span style="font-size:28px">+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100<span style="font-size:28px">+</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15+<span style="font-size:28px">+</span></div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about-visual reveal">
+      <div class="about-frame">
+        <div class="about-initials">KS</div>
+      </div>
+      <div class="about-badge">
+        <strong>11.5</strong>
+        Years of Design
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">About Me</div>
+      <h2>Self-taught. <br><em>Impact-driven.</em><br>Always Evolving.</h2>
+      <p>I’m a self-taught Graphic Designer and Visual Storyteller with over 11.5 years of experience creating impactful visuals for digital platforms, marketing campaigns, and brand communication. My journey has been shaped by hands-on learning, real-world experience, and a deep passion for creativity.
+
+<p>I specialize in social media creatives, emailers, branding, campaign visuals, and presentation design, transforming ideas into visuals that capture attention, communicate clearly, and deliver results. My approach combines creative thinking with strategic design, ensuring every visual is both aesthetically strong and purpose-driven.</p>
+
+<p>I also leverage AI-powered tools to enhance ideation, streamline workflows, and improve efficiency - blending technology with creativity to deliver thoughtful, high-quality designs that perform.</p>
+   
+      <p><em><span style="font-weight:700 !important;">Design,</span></em> for me, is about creating visuals that connect, inspire, and leave a lasting impact.</p>
+      <div class="skills-grid">
+        <div class="skill-pill"><i class="fas fa-image"></i> Adobe Photoshop</div>
+        <div class="skill-pill"><i class="fas fa-pen-nib"></i> Adobe Illustrator</div>
+        <div class="skill-pill"><i class="fab fa-figma"></i> After Effects</div>
+        <div class="skill-pill"><i class="fas fa-robot"></i>Canva AI</div>
+        <div class="skill-pill"><i class="fas fa-magic"></i> Presentation Tools</div>
+        <div class="skill-pill"><i class="fas fa-envelope"></i> Email Design</div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon"><i class="fas fa-diamond"></i></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- AI Banner -->
+  <div class="ai-banner reveal">
+    <div class="ai-icon"><i class="fas fa-microchip"></i></div>
+    <div class="ai-text">
+      <div class="about-text reveal visible">
+        <h2><em>AI</em> in My Workflow</h2>
+      </div>
+      <p>I use AI tools to enhance creativity, speed up workflows, and explore design possibilities more efficiently.
+        These tools support my process while ensuring the final output remains thoughtful, strategic, and aligned with
+        brand goals.</p>
+      <div>
+        <h4 style="    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 8px; margin-top: 10px; font: 1em sans-serif;">How I use AI in design:</h4>
+        <p><strong style="font-weight: 600;">• Concept Ideation:</strong> Generate initial ideas, directions, and
+          creative
+          concepts faster</p>
+        <p><strong style="font-weight: 600;">• Visual Exploration:</strong> Experiment with styles, layouts, and
+          compositions before finalizing
+          designs</p>
+        <p><strong style="font-weight: 600;">• Efficiency & Speed:</strong> Reduce turnaround time while maintaining
+          high-quality output</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="section-header reveal">
+      <div class="section-tag">My Work</div>
+      <h2>Selected <em>Portfolio</em></h2>
+      <p>A curated selection of projects spanning branding, social media, and print design.</p>
+    </div>
+
+    <div class="gallery-container">
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/AI Implementation Deck_page-0001.jpg" alt="AI Implementation Deck">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Campaign Carousel 14_page-0001.jpg" alt="Campaign Carousel 14">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Campaign Carousel 15_page-0001.jpg" alt="Campaign Carousel 15">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Chemtrove Logo.jpg" alt="Chemtrove Logo">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Diwali Emailer_2024_page-0001.jpg" alt="Diwali Emailer 2024">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/I-BIB_2023_Preview_Flipbook_page-0001.jpg" alt="I-BIB 2023 Preview Flipbook">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/IPL-Emailer.jpg" alt="IPL Emailer">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Indian EV Market_Emailer_page-0001.jpg" alt="Indian EV Market Emailer">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Industry Impact Series_Global Fashion_Emailer_page-0001.jpg"
+              alt="Industry Impact Series Global Fashion Emailer">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/M-Voice_March 2024_Special Edition_page-0001.jpg"
+              alt="M-Voice March 2024 Special Edition">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img
+              src="gallery/Markelytics_Chocolate Consumption Trends Across Global Markets_Industry Report_page-0001.jpg"
+              alt="Markelytics Chocolate Consumption Trends">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Markelytics_Indian Paint Industry Report_page-0001.jpg"
+              alt="Markelytics Indian Paint Industry Report">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (209).jpg" alt="Social Media Creative 209">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Online Community_Emailer_2_page-0001.jpg" alt="Online Community Emailer">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (1).gif" alt="Social Media Creative 1">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (115).jpg" alt="Social Media Creative 115">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (131).jpg" alt="Social Media Creative 131">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (145).jpg" alt="Social Media Creative 145">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (173).jpg" alt="Social Media Creative 173">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (180).jpg" alt="Social Media Creative 180">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (195).jpg" alt="Social Media Creative 195">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (196).jpg" alt="Social Media Creative 196">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (2).jpg" alt="Social Media Creative 2">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (203).jpg" alt="Social Media Creative 203">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (211).jpg" alt="Social Media Creative 211">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (221).jpg" alt="Social Media Creative 221">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (34).jpg" alt="Social Media Creative 34">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (48).jpg" alt="Social Media Creative 48">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (53).jpg" alt="Social Media Creative 53">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (62).jpg" alt="Social Media Creative 62">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (7).jpg" alt="Social Media Creative 7">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (80).jpg" alt="Social Media Creative 80">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Social Media Creative (87).jpg" alt="Social Media Creative 87">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Thanksgiving Emailer_2024_page-0001.jpg" alt="Thanksgiving Emailer 2024">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Transportation Factsheet_page-0001.jpg" alt="Transportation Factsheet">
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-img-wrapper">
+            <img src="gallery/Yazaki Workshop Presentation_page-0001.jpg" alt="Yazaki Workshop Presentation">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="services-layout">
+      <div class="services-intro reveal">
+        <div class="section-tag">What I Do</div>
+        <h2>Design that <br><em>delivers</em> results.</h2>
+        <p>From brand identity to digital campaigns — I bring ideas to life with strategic design thinking and
+          meticulous execution. Every pixel has a purpose.</p>
+      </div>
+      <div class="services-list reveal">
+        <a href="https://bit.ly/4tcry6Q" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">01</span>
+              <span class="srv-title">Branding </span>
+            </div>
+            <span class="srv-tag">Building Memorable Brand Identities</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/4cI8x6a" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">02</span>
+              <span class="srv-title">Brochure & FactSheet</span>
+            </div>
+            <span class="srv-tag">Clear and impactful collaterals</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/41xrpic" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">03</span>
+              <span class="srv-title">Campaign Carousal</span>
+            </div>
+            <span class="srv-tag">Stories designed for engagement</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/48MkPrP" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">04</span>
+              <span class="srv-title">Case Studies</span>
+            </div>
+            <span class="srv-tag">Insights brought to life</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/4dNvUMQ" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">05</span>
+              <span class="srv-title">Email Marketing Designs</span>
+            </div>
+            <span class="srv-tag">Designs that drive clicks</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/48vIqgm" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">06</span>
+              <span class="srv-title">Magazines</span>
+            </div>
+            <span class="srv-tag">Editorial layouts with style</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/4t9FWMR" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">07</span>
+              <span class="srv-title">Newsletter</span>
+            </div>
+            <span class="srv-tag">Readable and engaging updates</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/3OBb7Sm" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">08</span>
+              <span class="srv-title">Presentations & Pitch Decks</span>
+            </div>
+            <span class="srv-tag">Ideas presented with clarity</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/4mwN2J0" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">09</span>
+              <span class="srv-title">Social Media Creatives</span>
+            </div>
+            <span class="srv-tag">Visuals built for impact</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+        <a href="https://bit.ly/41AiaO5" target="_blank"
+          style="text-decoration: none; text-transform: none; color: #fafafa;">
+          <div class="service-row">
+            <div class="srv-left">
+              <span class="srv-num">10</span>
+              <span class="srv-title">Logo Design</span>
+            </div>
+            <span class="srv-tag">Distinctive Identities that Last</span>
+            <span class="srv-arrow"><i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2>Let’s bring <em>great ideas <br>to life</em> together.</h2>
+        <p>Have a project in mind? I’d love to hear about it. Let’s connect and explore how we can bring your vision to
+          life.</p>
+      </div>
+
+      <div class="contact-form reveal">
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="c-icon"><i class="fas fa-envelope"></i></div>
+            <div class="c-info">
+              <span class="c-label">Email</span>
+              <span class="c-val">kripa.gs@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon"><i class="fas fa-phone"></i></div>
+            <div class="c-info">
+              <span class="c-label">Phone / WhatsApp</span>
+              <span class="c-val">+91 99866 56537</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon"><i class="fas fa-location-dot"></i></div>
+            <div class="c-info">
+              <span class="c-label">Location</span>
+              <span class="c-val">Bengaluru, Karnataka, India</span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="socials">
+          <a href="https://www.instagram.com/rashidrahim804/" class="social-btn" target="_blank"><i
+              class="fab fa-instagram"></i></a>
+          <a href="https://web.facebook.com/rashid.rahim.7330763" class="social-btn" target="_blank"><i
+              class="fab fa-facebook"></i></a>
+          <a href="https://www.pinterest.com/rashidmrahim344/" class="social-btn" target="_blank"><i
+              class="fab fa-linkedin"></i></a>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">Kripa <span>Shanbhag</span></div>
+    <div class="footer-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Kripa G Shanbhag. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 4 + 'px';
+      cursor.style.top = my - 4 + 'px';
+    });
+    function animRing() {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.left = rx - 18 + 'px';
+      ring.style.top = ry - 18 + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+      // Active nav
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      document.querySelectorAll('nav ul li a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+
+    // Mobile menu
+    function toggleMobile() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Smooth grid animation on hero
+    (function () {
+      const grid = document.querySelector('.hero-grid');
+      let offset = 0;
+      function tick() {
+        offset += 0.2;
+        grid.style.backgroundPosition = `${offset * 0.3}px ${offset * 0.3}px`;
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+  </script>
+</body>
+
+</html>
